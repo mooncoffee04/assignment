@@ -143,6 +143,18 @@ if "logged_in_doctor" not in st.session_state:
                     st.rerun()
                 else:
                     st.error("❌ Incorrect password. Please try again.")
+
+    with tabs[1]:
+        st.subheader("Register")
+        reg_id = st.selectbox("Choose Your Doctor ID", [doc["id"] for doc in doctors])
+        reg_password = st.text_input("Create Password", type="password")
+        if st.button("Register"):
+            success, msg = register_doctor_login(reg_id, reg_password)
+            if success:
+                st.success(msg)
+            else:
+                st.warning(msg)
+                
 # Show dashboard if logged in
 else:
     doctor_id = st.session_state.logged_in_doctor
