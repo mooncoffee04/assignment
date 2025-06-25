@@ -1,0 +1,16 @@
+case_id,patient_id,patient_name,doctor_id,lab_report_link,scan_link,case_summary
+C001,P001,Amit Shah,D001,,,"Complains of chest tightness during exertion, shortness of breath and fatigue. Suspected angina."
+C002,P002,Kavya Sinha,D001,,,"Reports palpitations, anxiety, and mild chest discomfort. Possible arrhythmia."
+C003,P003,Rohan Gupta,D001,,,"Sudden shortness of breath, swelling in legs, and past hypertension. Possible congestive heart failure."
+
+C004,P004,Ishaan Roy,D002,,,"Complains of frequent headaches, light sensitivity, and nausea. Likely migraine."
+C005,P005,Meera Jain,D002,,,"Patient disoriented, shows slurred speech and loss of coordination. Stroke suspected."
+C006,P006,Vikram Das,D002,,,"Tingling sensation in limbs and chronic fatigue. Possible multiple sclerosis."
+
+C007,P007,Sanya Verma,D003,,,"Complains of excessive thirst, frequent urination, and blurry vision. Newly diagnosed diabetes."
+C008,P008,Tarun Yadav,D003,,,"High fasting blood sugar and numbness in feet. Diabetic neuropathy suspected."
+C009,P009,Naina Bhat,D003,,,"Fatigue, weight gain, insulin resistance signs. Metabolic syndrome suspected."
+
+C010,P010,Arjun Malhotra,D004,,,"Reports unexplained weight loss, persistent cough, and fatigue. Lung cancer under evaluation."
+C011,P011,Priya Desai,D004,,,"Lump in breast detected, with recent imaging showing irregular mass. Possible breast carcinoma."
+C012,P012,Rehan Ali,D004,,,"Presents with frequent fevers, swollen lymph nodes, and night sweats. Lymphoma under investigation."
