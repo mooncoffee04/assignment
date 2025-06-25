@@ -80,7 +80,7 @@ python neo4jpatients.py
 python neo4jdoctors.py
 ```
 
-🗣️ 7. Supported Features
+# 7. Supported Features
 
 - Ask via Command (Typed or Dictated) — powered by Gemini + Whisper
 
