@@ -34,50 +34,61 @@ ASSIGNMENT/
 
 ```
 # 1. Clone & Set Up Environment
+```
 git clone <your-repo-url>
 cd ASSIGNMENT
+```
 
-# Create virtual environment
+# Create virtual environment (Terminal)
+```
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\\Scripts\\activate
+```
 
 # Install dependencies
+```
 pip install -r requirements.txt
+```
 
 # 2. Create a ```.env``` file
-### .env
+```
 GEMINI_API_KEY=your_gemini_api_key_here
 NEO4J_URI=bolt://localhost:7687
 NEO4J_USERNAME=neo4j
 NEO4J_PASSWORD=your_password_here
+```
 
-# 3. Run SeaWeedFS via Docker
+# 3. Run SeaWeedFS via Docker (Terminal)
+```
 cd seaweedfs-docker
 docker-compose up -d
+```
 
 # 4. Setup Whisper for Speech-to-text
+```
 pip install openai-whisper
+```
 
 # 5. Run the App
+```
 streamlit run home.py
+```
 
 # 6. Sample Data for Neo4j
 Use the provided ```sample_patient.csv``` and ```sample_doctor.csv``` with:
-
+```
 python neo4jpatients.py
 python neo4jdoctors.py
+```
 
 🗣️ 7. Supported Features
 
-    Ask via Command (Typed or Dictated) — powered by Gemini + Whisper
+- Ask via Command (Typed or Dictated) — powered by Gemini + Whisper
 
-    Auto-generated SOAP notes from lab/scan reports
+- Auto-generated SOAP notes from lab/scan reports
 
-    Patient/case dashboard with uploaded audio/image reports
+- Patient/case dashboard with uploaded audio/image reports
 
-    Feedback tracking and storage
+- Feedback tracking and storage
 
-    PDF generation + SeaweedFS file handling
-
-
-
+- PDF generation + SeaweedFS file handling
