@@ -1,6 +1,5 @@
 # medmitraAI
-from pathlib import Path
-
+---
 # 🏥 Multimodal Clinical Insight Assistant – Setup Guide
 
 This project is a Streamlit-based app designed to help doctors interact with patient data using natural language, voice commands, and multimodal inputs like lab/scan reports.
