@@ -1,0 +1,13 @@
+streamlit>=1.33.0
+python-dotenv
+neo4j>=5.17.0
+pandas
+requests
+audiorecorder
+openai-whisper
+pydicom
+matplotlib
+Pillow
+python-dateutil
+google-generativeai
+torch  # required by whisper
