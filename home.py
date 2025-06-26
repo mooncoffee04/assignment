@@ -264,6 +264,7 @@ else:
                     result = model.transcribe(temp_path)
                     os.remove(temp_path)
                     transcription = result["text"]
+                    st.json(result)
                 
                 st.success("✅ Transcription complete!")
                 st.text_area("Transcribed Command", value=transcription, height=70, disabled=True, key="transcribed_cmd_display_global")
@@ -293,6 +294,7 @@ else:
                 if result['success']:
                     
                     st.code(result['query'], language='cypher') # Uncomment for debugging Cypher query
+                    st.json(result)
                     
                     if result['data']:
                         st.markdown("### 📊 Results")
@@ -633,6 +635,7 @@ else:
                                 result = model.transcribe(temp_path)
                                 os.remove(temp_path)
                                 transcription = result["text"]
+                                st.json(result)
                             st.success("✅ Transcription complete!")
                             st.text_area("🧾 Transcribed Summary", value=transcription, height=150)
                             with driver.session() as session:
@@ -971,31 +974,51 @@ else:
                                     st.markdown(f"🔗 [⬇️ Click to Download Clinical Insight PDF]({pdf_url})")
                                 else:
                                     st.warning("⚠️ Clinical Insight PDF export failed. Please try again.")
-                    # Add feedback section - store in session state to persist across reruns
-                        feedback_key = f"show_feedback_{case['CaseID']}"
-                        if pdf_url and feedback_key not in st.session_state:
-                            st.session_state[feedback_key] = True
 
-                        if st.session_state.get(feedback_key, False):
-                            st.markdown("---")
-                            st.markdown("### 📊 Was this insight helpful?")
-                            col_good, col_bad, col_dismiss = st.columns(3)
-                            with col_good:
-                                if st.button("👍 Good Response", key=f"good_feedback_{case['CaseID']}"):
-                                    store_feedback_to_file(case["CaseID"], doctor_id, "good")
-                                    st.success("✅ Thank you for your feedback!")
-                                    del st.session_state[feedback_key]  # Remove feedback buttons
-                                    st.rerun()
-                            with col_bad:
-                                if st.button("👎 Poor Response", key=f"bad_feedback_{case['CaseID']}"):
-                                    store_feedback_to_file(case["CaseID"], doctor_id, "bad")
-                                    st.success("✅ Thank you for your feedback!")
-                                    del st.session_state[feedback_key]  # Remove feedback buttons
-                                    st.rerun()
-                            with col_dismiss:
-                                if st.button("❌ Dismiss", key=f"dismiss_feedback_{case['CaseID']}"):
-                                    del st.session_state[feedback_key]  # Remove feedback buttons
-                                    st.rerun()
+                # Add feedback section - store in session state to persist across reruns
+                feedback_key = f"show_feedback_{case['CaseID']}"
+                good_key = f"good_clicked_{case['CaseID']}"
+                bad_key = f"bad_clicked_{case['CaseID']}"
+                dismiss_key = f"dismiss_clicked_{case['CaseID']}"
+                
+                if feedback_key not in st.session_state:
+                    st.session_state[feedback_key] = True
+
+                # Check for button clicks first (before showing buttons)
+                if st.session_state.get(good_key, False):
+                    store_feedback_to_file(case["CaseID"], doctor_id, "good")
+                    st.success("✅ Thank you for your positive feedback!")
+                    # st.session_state[feedback_key] = False
+                    st.session_state[good_key] = False
+                    
+                elif st.session_state.get(bad_key, False):
+                    store_feedback_to_file(case["CaseID"], doctor_id, "bad")
+                    st.success("✅ Thank you for your feedback! We'll work to improve.")
+                    # st.session_state[feedback_key] = False
+                    st.session_state[bad_key] = False
+                    
+                elif st.session_state.get(dismiss_key, False):
+                    # st.session_state[feedback_key] = False
+                    st.session_state[dismiss_key] = False
+
+                # Show feedback buttons only if still active
+                if st.session_state.get(feedback_key, False):
+                    st.markdown("---")
+                    st.markdown("### 📊 Was this insight helpful?")
+                    col_good, col_bad, col_dismiss = st.columns(3)
+                    with col_good:
+                        if st.button("👍 Good Response", key=f"good_feedback_{case['CaseID']}"):
+                            st.session_state[good_key] = True
+                            # st.rerun()
+                    with col_bad:
+                        if st.button("👎 Poor Response", key=f"bad_feedback_{case['CaseID']}"):
+                            st.session_state[bad_key] = True
+                            # st.rerun()
+                    with col_dismiss:
+                        if st.button("❌ Dismiss", key=f"dismiss_feedback_{case['CaseID']}"):
+                            st.session_state[dismiss_key] = True
+                            # st.rerun()  # Remove feedback buttons
+                                            
                                     
     else:
         st.info("No cases assigned to you yet.")
